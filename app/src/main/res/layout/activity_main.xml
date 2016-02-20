@@ -12,7 +12,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Play"
+        android:text="@string/button_play"
         android:id="@+id/playButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

@@ -184,8 +184,10 @@ public class MainActivity extends AppCompatActivity {
                             the answer will be treated by the function onActivityResult
                              */
 
+                        //to do
+
                     }else{
-                        bluetoothSeekEnable(false);
+                        // to do
                     }
                     /*
                     Intent nextActivity = new Intent(getApplicationContext(), //nextActity);

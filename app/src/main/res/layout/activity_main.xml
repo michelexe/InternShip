@@ -21,7 +21,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_sound_active"
+        android:id="@+id/button_main_sound_state"
         android:src="@drawable/sound_active"
         android:layout_above="@+id/playButton"
         android:layout_alignRight="@+id/playButton"

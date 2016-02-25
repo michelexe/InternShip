@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private Set<BluetoothDevice> devices; // this will contain the list of bluetooth device
     private ImageButton button_sound;
 
+
     //  http://www.tutos-android.com/utilisation-bluetooth-application-android
+    // http://developer.android.com/guide/topics/connectivity/bluetooth.html
     // animation: http://developer.android.com/guide/topics/graphics/prop-animation.html
     // https://www.youtube.com/watch?v=uP9Bbzk_sB0
     // http://stackoverflow.com/questions/1520887/how-to-pause-sleep-thread-or-process-in-android
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
      * @param state
      */
     public static void setSoundState(boolean state){
+
         MainActivity.soundEnable=state;
     }
 
@@ -149,22 +154,33 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(discoverableIntent);
     }
+
+    /**
+     * add all listener on Button and ImageButton
+     */
     private void addClikListener(){
         View.OnClickListener imgButtonHandler = new View.OnClickListener() {
             // create a View.Onclick Listener which will be use by button_sound
             public void onClick(View v) {
-                if(soundEnable){ // if the sound is enable
+                AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+                            // audio managment
+                if(MainActivity.getStateSound()){ // if the sound is enable
                     MainActivity.setSoundState(false); // disable sound
                     button_sound.setImageResource(R.drawable.icone_sound_mute);
                     // load image which coresponds at sound_inactive
+                    amanager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+                            // mute the sound (Music only)
                 }else {
                     MainActivity.setSoundState(true);
+                    amanager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                            // unmute the sound (Music only)
                     button_sound.setImageResource(R.drawable.sound_active);
+                        // load the image sou
                 }
             }
         };
 
-        this.button_sound = (ImageButton) findViewById(R.id.button_sound_active);
+        this.button_sound = (ImageButton) findViewById(R.id.button_main_sound_state);
         this.button_sound.setOnClickListener(imgButtonHandler);
 
         final Button playButton = (Button) findViewById(R.id.playButton);
@@ -184,10 +200,13 @@ public class MainActivity extends AppCompatActivity {
                             the answer will be treated by the function onActivityResult
                              */
 
-                        //to do
 
+                        Intent intent = new Intent(MainActivity.this, Video.class); // changer d'activité
+                        startActivity(intent);
                     }else{
-                        // to do
+                        Intent intent = new Intent(MainActivity.this, Video.class); // changer d'activité
+                        startActivity(intent);
+
                     }
                     /*
                     Intent nextActivity = new Intent(getApplicationContext(), //nextActity);
@@ -197,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
 
